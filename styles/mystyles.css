@@ -1,0 +1,20 @@
+.sidebar-closed {
+  width: 30px;
+  height: 100px;
+  background-color: transparent;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  cursor: pointer;
+  transition: width 0.3s;
+}
+
+.sidebar-open {
+  width: 250px;
+  height: 100vh;
+  background-color: #372f51;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: width 0.3s;
+}
