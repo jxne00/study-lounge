@@ -1,6 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { getRandomBackground } from '@/utils/themes';
 import '../styles/mystyles.css';
 
 import Button from '@mui/material/Button';
@@ -37,6 +38,25 @@ export default function Home() {
     notes: true,
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [backgroundImage, setBackgroundImage] = useState(getRandomBackground());
+
+  useEffect(() => {
+    document.body.style.setProperty(
+      '--background-image',
+      `url(${backgroundImage})`
+    );
+    document.body.style.backgroundImage = `url(${backgroundImage})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.height = '100vh';
+
+    return () => {
+      document.body.style.backgroundImage = '';
+      document.body.style.backgroundSize = '';
+      document.body.style.backgroundPosition = '';
+      document.body.style.height = '';
+    };
+  }, [backgroundImage]);
 
   // set feature visibility
   const toggleFeature = (feature) => {
@@ -48,6 +68,10 @@ export default function Home() {
 
   return (
     <main className='min-h-screen p-4 md:p-8 lg:p-24 flex flex-col md:relative'>
+      <button onClick={() => setBackgroundImage(getRandomBackground())}>
+        Change Theme
+      </button>
+
       <div className='my-4 md:absolute md:top-0 md:left-0 md:ml-4 md:mt-4 md:mb-0'>
         <Clock />
         {featureVisible.todo && <Todo />}
