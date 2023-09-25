@@ -18,3 +18,43 @@
   left: 0;
   transition: width 0.3s;
 }
+
+.bg-img {
+  /* src: https://www.freepik.com/free-vector/ripped-notes-rectangle-frame_16269733.htm#query=study%20aesthetic&position=18&from_view=keyword&track=ais */
+  background-image: url('../images/rm118-nunoon-19.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-img2 {
+  /* src: https://unsplash.com/photos/AkUR27wtaxs */
+  background-image: url('../images/unsplash-bridge.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-img3 {
+  /* src: https://unsplash.com/photos/v7daTKlZzaw */
+  background-image: url('../images/unsplash-mountain.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-img4 {
+  /* src: https://unsplash.com/photos/0berjRl2uks */
+  background-image: url('../images/unsplash-window.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-img5 {
+  /* https://unsplash.com/photos/vSchPA-YA_A */
+  background-image: url('../images/unsplash-desk.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

@@ -1,11 +1,11 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { getRandomBackground } from '@/utils/themes';
 import '../styles/mystyles.css';
 
 import Button from '@mui/material/Button';
 import StartRoundedIcon from '@mui/icons-material/StartRounded';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 // dynamically import clock component
 const Clock = dynamic(() => import('../components/clock'), {
@@ -38,25 +38,17 @@ export default function Home() {
     notes: true,
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState(getRandomBackground());
+  const [bgImg, setBgImg] = useState(0); // index of imgPaths
 
-  useEffect(() => {
-    document.body.style.setProperty(
-      '--background-image',
-      `url(${backgroundImage})`
-    );
-    document.body.style.backgroundImage = `url(${backgroundImage})`;
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
-    document.body.style.height = '100vh';
+  // css classes that each sets a diff bg image
+  const imgClasses = ['bg-img', 'bg-img2', 'bg-img3', 'bg-img4', 'bg-img5'];
 
-    return () => {
-      document.body.style.backgroundImage = '';
-      document.body.style.backgroundSize = '';
-      document.body.style.backgroundPosition = '';
-      document.body.style.height = '';
-    };
-  }, [backgroundImage]);
+  // set a class for the background image
+  const changeBackground = () => {
+    setBgImg((prevIndex) => (prevIndex + 1) % imgClasses.length);
+  };
+
+  const currBg = imgClasses[bgImg];
 
   // set feature visibility
   const toggleFeature = (feature) => {
@@ -67,11 +59,8 @@ export default function Home() {
   };
 
   return (
-    <main className='min-h-screen p-4 md:p-8 lg:p-24 flex flex-col md:relative'>
-      <button onClick={() => setBackgroundImage(getRandomBackground())}>
-        Change Theme
-      </button>
-
+    <main
+      className={`min-h-screen p-4 md:p-8 lg:p-24 flex flex-col md:relative ${currBg}`}>
       <div className='my-4 md:absolute md:top-0 md:left-0 md:ml-4 md:mt-4 md:mb-0'>
         <Clock />
         {featureVisible.todo && <Todo />}
@@ -125,11 +114,23 @@ export default function Home() {
                 />
                 Notes
               </label>
+
+              <label className='my-2 flex items-center'>
+                <Button
+                  variant='contained'
+                  className='bg-slate-400 text-white'
+                  onClick={changeBackground}>
+                  <RefreshIcon />
+                </Button>
+                change background
+              </label>
             </div>
           </div>
         ) : (
           <div>
-            <Button variant='contained' className='bg-slate-400 text-white'>
+            <Button
+              variant='contained'
+              className='bg-slate-400 mr-2 text-white'>
               <StartRoundedIcon />
             </Button>
           </div>
