@@ -38,7 +38,7 @@ export default function Home() {
     notes: true,
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [bgImg, setBgImg] = useState(0); // index of imgPaths
+  const [bgImg, setBgImg] = useState(1); // index of imgPaths
 
   // css classes that each sets a diff bg image
   const imgClasses = ['bg-img', 'bg-img2', 'bg-img3', 'bg-img4', 'bg-img5'];
