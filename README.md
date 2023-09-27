@@ -1,21 +1,21 @@
 # Study Lounge
 
-A virtual study space.
+A virtual study space. It includes components such as a pomodoro timer, to-do list, and a note taking area. Each component can be hidden by unchecking the checkbox in the sidebar.
 
-Built with next.js and deployed on Netlify at [study-lounge.netlify.app/](study-lounge.netlify.app/).
+Developed using Next.js with Tailwind CSS, and deployed on Netlify at [study-lounge.netlify.app/](https://study-lounge.netlify.app/).
 
 ## Instuctions
 
-To run the project locally:
+To clone and run locally:
 
-```txt
+```
 $ git clone https://github.com/jxne00/study-lounge.git
 $ cd study-lounge
 $ npm install
 $ npm run dev
 ```
 
-App should now be available on `localhost:3000`.
+App should now be available on your `localhost:3000`.
 
 ## Pending
 
