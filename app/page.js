@@ -1,44 +1,38 @@
 'use client';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import '../styles/mystyles.css';
 
-import Button from '@mui/material/Button';
-import StartRoundedIcon from '@mui/icons-material/StartRounded';
-import RefreshIcon from '@mui/icons-material/Refresh';
+import '../styles/mystyles.css';
+import Sidebar from '@/components/sidebar';
 
 // dynamically import clock component
 const Clock = dynamic(() => import('../components/clock'), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
 });
 
 // dynamically import notes component
 const Notes = dynamic(() => import('../components/notes'), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
 });
 
 // dynamically import todo component
 const Todo = dynamic(() => import('../components/todo'), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
 });
 
 // dynamically import timer component
 const Timer = dynamic(() => import('../components/timer'), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
 });
 
-export default function Home() {
+function Index() {
+  // true: show feature, false: hide feature
   const [featureVisible, setFeatureVisible] = useState({
     todo: true,
     timer: true,
     notes: true,
   });
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [bgImg, setBgImg] = useState(1); // index of imgPaths
+  const [bgImg, setBgImg] = useState(1); // store index of image to use
 
   // css classes that each sets a diff bg image
   const imgClasses = ['bg-img', 'bg-img2', 'bg-img3', 'bg-img4', 'bg-img5'];
@@ -50,19 +44,17 @@ export default function Home() {
 
   const currBg = imgClasses[bgImg];
 
-  // set feature visibility
-  const toggleFeature = (feature) => {
-    setFeatureVisible((prevState) => ({
-      ...prevState,
-      [feature]: !prevState[feature],
-    }));
-  };
-
   return (
     <main
       className={`min-h-screen p-4 md:p-8 lg:p-24 flex flex-col md:relative ${currBg}`}>
+      <p className='text-white text-center text-2xl font-bold'>study lounge</p>
+
       <div className='my-4 md:absolute md:top-0 md:left-0 md:ml-4 md:mt-4 md:mb-0'>
         <Clock />
+
+        {/* add empty space */}
+        <div className='h-4'></div>
+
         {featureVisible.todo && <Todo />}
       </div>
 
@@ -75,67 +67,13 @@ export default function Home() {
       </div>
 
       {/* sidebar that can be expended */}
-      <div
-        className={sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}
-        onClick={() => setSidebarOpen(!sidebarOpen)}>
-        {sidebarOpen ? (
-          <div className='p-4 text-white'>
-            <h1 className='text-2xl font-bold'>Settings</h1>
-            <hr className='my-2' />
-            <p className='text-sm text-gray-400'>un-check to hide</p>
-
-            <div onClick={(e) => e.stopPropagation()} className='flex flex-col'>
-              <label className='my-2 flex items-center'>
-                <input
-                  type='checkbox'
-                  className='mr-2'
-                  checked={featureVisible.todo}
-                  onChange={() => toggleFeature('todo')}
-                />
-                Todo
-              </label>
-
-              <label className='my-2 flex items-center'>
-                <input
-                  type='checkbox'
-                  className='mr-2'
-                  checked={featureVisible.timer}
-                  onChange={() => toggleFeature('timer')}
-                />
-                Timer
-              </label>
-
-              <label className='my-2 flex items-center'>
-                <input
-                  type='checkbox'
-                  className='mr-2'
-                  checked={featureVisible.notes}
-                  onChange={() => toggleFeature('notes')}
-                />
-                Notes
-              </label>
-
-              <label className='my-2 flex items-center'>
-                <Button
-                  variant='contained'
-                  className='bg-slate-400 text-white'
-                  onClick={changeBackground}>
-                  <RefreshIcon />
-                </Button>
-                change background
-              </label>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <Button
-              variant='contained'
-              className='bg-slate-400 mr-2 text-white'>
-              <StartRoundedIcon />
-            </Button>
-          </div>
-        )}
-      </div>
+      <Sidebar
+        featureVisible={featureVisible}
+        setFeatureVisible={setFeatureVisible}
+        changeBackground={changeBackground}
+      />
     </main>
   );
 }
+
+export default Index;

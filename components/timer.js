@@ -1,5 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
+
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 // a pomodoro timer
 const Timer = () => {
@@ -45,16 +50,23 @@ const Timer = () => {
   return (
     <div className='text-center border p-8'>
       <div className='text-4xl mb-4'>{formatTime(timeInSeconds)}</div>
-      <button
+
+      <Button
+        variant='contained'
+        endIcon={isActive ? <PauseIcon /> : <PlayArrowIcon />}
         onClick={toggleTimer}
-        className='mx-2 py-2 px-4 bg-blue-500 text-white rounded'>
+        className='bg-blue-500 text-white rounded'
+        style={{ marginRight: '10px' }}>
         {isActive ? 'Pause' : 'Start'}
-      </button>
-      <button
+      </Button>
+
+      <Button
+        variant='contained'
+        endIcon={<RestartAltIcon />}
         onClick={resetTimer}
-        className='mx-2 py-2 px-4 bg-red-500 text-white rounded'>
+        className='bg-red-500 text-white rounded'>
         Reset
-      </button>
+      </Button>
     </div>
   );
 };
